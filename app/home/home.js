@@ -2,17 +2,7 @@
 
 angular.module('bm')
 
-.controller('HomeCtrl', ['$scope', 'userAPI', function($scope, userAPI) {
-	//test
-	$scope.userID = userAPI.getUserID();
-	$scope.lastUserID = userAPI.getLastUserID();
-	$scope.sessionID = userAPI.getSessionID();
-
-	$scope.isLoggedIn = userAPI.isLoggedIn();
-	$scope.userLogin = {
-		username: userAPI.getLastUserID(),
-		password: ''
-	};
+.controller('HomeCtrl', ['$scope', function($scope) {
 	
 	$scope.devStats = {
 		deviceReady: false,
@@ -20,40 +10,37 @@ angular.module('bm')
 		screenDimensions: 'unknown',
 		windowDimensions: 'unknown',
 		deviceOrientation: 'unknown',//portrait or landscape
-		userEmail: '',
 		averageHabitScore: 0,
 	};
 	
-	//called by loginForm
-	$scope.login = function(userLogin){
-		userAPI.login(userLogin.username,userLogin.password).then(
-			function(response){
-				if(response.data['responseCode'] == 'success'){
-					location.reload();
-				}//else display some login error message
-			}
-		);
-	};
-	$scope.logout = function(){
-		userAPI.logout(userAPI.getUserID(), userAPI.getSessionID()).then(
-			function(){
-				location.reload();
-			}
-		);
-	};
+	$scope.markers = [
+		{
+			id: 1,
+			name: 'marker 1',
+			lng: 12.00,
+			lat: 10.00,
+			description: 'this is the first hard-coded marker'
+		},
+		{
+			id: 2,
+			name: 'marker 2',
+			lng: 15.00,
+			lat: 10.00,
+			description: 'this is marker 2, not much to see here'
+		},
+		{
+			id: 3,
+			name: 'marker 3',
+			lng: 12.00,
+			lat: 8.00,
+			description: 'One time I ate cheetos and orange soda and threw up and made an orange stain on the carpet that stayed there for 10 years.'
+		}
+	];
 	
-	$scope.getUserInfo = function(){
-		userAPI.getUserInfo($scope.userID, $scope.sessionID).then(
-			function(response){
-				console.log('getUserInfo response: ' + BM.utils.stringifySafe(response));
-			//TODO: do something with results involving $scope.devStats				
-				if(response
-				&& response.data
-				&& response.data['responseCode'] == 'success'){
 
-				}
-			}
-		);	
+	
+	$scope.getDeviceInfo = function(){
+
 	};
 
 }]);
