@@ -6,6 +6,7 @@ var BM = BM || {};
 var pdbApp = angular.module('bm', [
   'ui.bootstrap',
   'ui.router',
+  'uiGmapgoogle-maps',
   'bm.login',
   'bm.catalogue',
   'bm.version'

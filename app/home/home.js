@@ -13,6 +13,8 @@ angular.module('bm')
 		averageHabitScore: 0,
 	};
 	
+	$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+	
 	$scope.markers = [
 		{
 			id: 1,
@@ -42,5 +44,21 @@ angular.module('bm')
 	$scope.getDeviceInfo = function(){
 
 	};
+	/*
+	//init
+    var script = document.createElement('script');
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAN4QyzV_IGqeQFD2yfLeWC8jeV4JmW4Vs";
+    script.async = "async";
+	script.defer = "defer";
+	document.getElementsByTagName('head')[0].appendChild(script);
+	
 
+	var mapDiv = document.getElementById('gmaptest');
+	//var mapDiv = $('.gmap')[0];
+	var map = new google.maps.Map(mapDiv, {
+	  center: {lat: 44.540, lng: -78.546},
+	  zoom: 8
+	});
+
+	*/
 }]);
