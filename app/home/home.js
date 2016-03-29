@@ -2,63 +2,96 @@
 
 angular.module('bm')
 
-.controller('HomeCtrl', ['$scope', function($scope) {
-	
-	$scope.devStats = {
-		deviceReady: false,
-		userAgent: 'unknown',
-		screenDimensions: 'unknown',
-		windowDimensions: 'unknown',
-		deviceOrientation: 'unknown',//portrait or landscape
-		averageHabitScore: 0,
-	};
-	
-	$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-	
-	$scope.markers = [
-		{
-			id: 1,
-			name: 'marker 1',
-			lng: 12.00,
-			lat: 10.00,
-			description: 'this is the first hard-coded marker'
-		},
-		{
-			id: 2,
-			name: 'marker 2',
-			lng: 15.00,
-			lat: 10.00,
-			description: 'this is marker 2, not much to see here'
-		},
-		{
-			id: 3,
-			name: 'marker 3',
-			lng: 12.00,
-			lat: 8.00,
-			description: 'One time I ate cheetos and orange soda and threw up and made an orange stain on the carpet that stayed there for 10 years.'
-		}
-	];
-	
+.controller('HomeCtrl', ['$scope', 'uiGmapGoogleMapApi', 
+	function($scope, uiGmapGoogleMapApi) {
+		
+		$scope.devStats = {
+			deviceReady: false,
+			userAgent: 'unknown',
+			screenDimensions: 'unknown',
+			windowDimensions: 'unknown',
+			deviceOrientation: 'unknown',//portrait or landscape
+			averageHabitScore: 0,
+		};
+		
+		$scope.map = {
+		
+			center: {
+				latitude: 38.85, 
+				longitude: -77.2 
+			}, 
+			zoom: 10,
+			markers: [
+				{
+					'id': '1',
+					name: 'marker 1',
+					'showWindow': true,
+					'coordinates': {
+						'latitude': 38.85, 
+						'longitude': -77.20
+					},
+					description: 'this is the first hard-coded marker'
+				},
+				{
+					'id': '2',
+					name: 'marker 1',
+					'showWindow': true,
+					'coordinates': {
+						'latitude': 38.90, 
+						'longitude': -77.00
+					},
+					description: 'this is marker 2, not much to see here'
+				},
+				{
+					'id': '3',
+					name: 'marker 1',
+					'showWindow': true,
+					'coordinates': {
+						'latitude': 38.875, 
+						'longitude': -77.15
+					},
+					description: 'I like turtles'
+				}
+			]
+		};
+		
+		//EXAMPLE: getting a list of markers dynamically
+		// and storing in searchResults.results
+		/*
+		$scope.addMarkers = _.once(function (num) {
+		  var markers = [];
+		  var i = 0;
 
-	
-	$scope.getDeviceInfo = function(){
+		  for (i = 0; i < num; i++) {
+			var cords = chance.coordinates().split(',');
+	//      if(markers.length < 100){
+			markers.push({
+			  'coords': {
+				'latitude': cords[0],
+				'longitude': cords[1]
+			  },
+			  'key': 'someKey-' + lastId
+			});
+			lastId++;
+	//      }
+		  }
+		  lastId = 1;//reset
+		  $scope.searchResults.results = markers;
+		});
+		*/
 
-	};
-	/*
-	//init
-    var script = document.createElement('script');
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAN4QyzV_IGqeQFD2yfLeWC8jeV4JmW4Vs";
-    script.async = "async";
-	script.defer = "defer";
-	document.getElementsByTagName('head')[0].appendChild(script);
-	
+		$scope.getDeviceInfo = function(){
 
-	var mapDiv = document.getElementById('gmaptest');
-	//var mapDiv = $('.gmap')[0];
-	var map = new google.maps.Map(mapDiv, {
-	  center: {lat: 44.540, lng: -78.546},
-	  zoom: 8
-	});
-
-	*/
+		};
+		
+		
+		// uiGmapGoogleMapApi is a promise.
+		// The "then" callback function provides the google.maps object.
+		uiGmapGoogleMapApi.then(function(maps){
+			//do stuff with the maps object here I guess
+		});
+		
+		
+		
+		
 }]);

@@ -11,6 +11,8 @@ var pdbApp = angular.module('bm', [
   'bm.catalogue',
   'bm.version'
 ]);
+
+//StateProvider config
 pdbApp.config(['$stateProvider','$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
 	//redirect unmatched urls to /home
@@ -34,6 +36,16 @@ pdbApp.config(['$stateProvider','$urlRouterProvider',
 		})
   }
 ])
+
+//Google Maps provider config
+.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyAN4QyzV_IGqeQFD2yfLeWC8jeV4JmW4Vs',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });
+})
+
 
 .run(['$rootScope', '$state', 'userAPI',
 	function($rootScope, $state, userAPI){
