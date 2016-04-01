@@ -2,8 +2,8 @@
 
 angular.module('bm')
 
-.controller('HomeCtrl', ['$scope', 'uiGmapGoogleMapApi', 
-	function($scope, uiGmapGoogleMapApi) {
+.controller('HomeCtrl', ['$scope', 'uiGmapGoogleMapApi', 'barsAPI'
+	function($scope, uiGmapGoogleMapApi, barsAPI) {
 		
 		$scope.devStats = {
 			deviceReady: false,
@@ -14,6 +14,7 @@ angular.module('bm')
 			averageHabitScore: 0,
 		};
 		
+		$scope.getBarOutput = '';
 		$scope.map = {
 		
 			center: {
@@ -80,8 +81,20 @@ angular.module('bm')
 		});
 		*/
 
-		$scope.getDeviceInfo = function(){
-
+		$scope.testGetBar = function(){
+			barsAPI.getBar(1).then(function(response){
+				if(response
+				&& response.data){
+				
+				console.log('getBar() id: 1 responseCode: '
+				+ response.data['responseCode']
+				+ ' responseMessage: '
+				+ response.data['responseMessage']);
+				
+				if(response.data['responseCode'] == 'success'){
+					$scope.getBarOutput = response.data['bar'];
+				}
+			});
 		};
 		
 		
