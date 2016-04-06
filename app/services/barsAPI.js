@@ -11,8 +11,7 @@
 		function getBar(barID){
 			return $http({
 				//TODO: get lamp-1 URL
-				url: //'http://apsis.me/BM/lib/SessionUtil/SessionUtil_cc.php',
-				'',
+				url: 'http://apsis.me/BM/lib/Bars/Bars_cc.php',
 				method: 'POST',
 				//withCredentials: true,
 				data: {

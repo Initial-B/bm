@@ -2,7 +2,7 @@
 
 angular.module('bm')
 
-.controller('HomeCtrl', ['$scope', 'uiGmapGoogleMapApi', 'barsAPI'
+.controller('HomeCtrl', ['$scope', 'uiGmapGoogleMapApi', 'barsAPI',
 	function($scope, uiGmapGoogleMapApi, barsAPI) {
 		
 		$scope.devStats = {
@@ -85,14 +85,18 @@ angular.module('bm')
 			barsAPI.getBar(1).then(function(response){
 				if(response
 				&& response.data){
-				
-				console.log('getBar() id: 1 responseCode: '
-				+ response.data['responseCode']
-				+ ' responseMessage: '
-				+ response.data['responseMessage']);
-				
-				if(response.data['responseCode'] == 'success'){
-					$scope.getBarOutput = response.data['bar'];
+					console.log('getBar() response.data: '
+					+ BM.utils.stringifySafe(response.data));
+					//+ JSON.stringify(response));
+					/*
+					console.log('getBar() id: 1 responseCode: '
+					+ response.data['responseCode']
+					+ ' responseMessage: '
+					+ response.data['responseMessage']);
+					*/
+					if(response.data['responseCode'] == 'success'){
+						$scope.getBarOutput = response.data['bar'];
+					}
 				}
 			});
 		};
