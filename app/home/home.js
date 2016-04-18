@@ -15,6 +15,7 @@ angular.module('bm')
 		};
 		
 		$scope.getBarOutput = '';
+		$scope.infoWindows = [];
 		$scope.map = {
 		
 			center: {
@@ -31,7 +32,17 @@ angular.module('bm')
 						'latitude': 38.85, 
 						'longitude': -77.20
 					},
-					description: 'this is the first hard-coded marker'
+					description: 'this is the first hard-coded marker',
+					events: {
+						mouseover: function(marker){
+							console.log('moused over marker 1');
+							//TODO: try to show infoWindow
+						},
+						click: function(marker){
+							console.log('clicked marker 1');
+							//TODO: try calling $scope stuff
+						}
+					}
 				},
 				{
 					'id': '2',
@@ -55,31 +66,6 @@ angular.module('bm')
 				}
 			]
 		};
-		
-		//EXAMPLE: getting a list of markers dynamically
-		// and storing in searchResults.results
-		/*
-		$scope.addMarkers = _.once(function (num) {
-		  var markers = [];
-		  var i = 0;
-
-		  for (i = 0; i < num; i++) {
-			var cords = chance.coordinates().split(',');
-	//      if(markers.length < 100){
-			markers.push({
-			  'coords': {
-				'latitude': cords[0],
-				'longitude': cords[1]
-			  },
-			  'key': 'someKey-' + lastId
-			});
-			lastId++;
-	//      }
-		  }
-		  lastId = 1;//reset
-		  $scope.searchResults.results = markers;
-		});
-		*/
 
 		$scope.testGetBar = function(){
 			barsAPI.getBar(1).then(function(response){
@@ -101,14 +87,11 @@ angular.module('bm')
 			});
 		};
 		
-		
 		// uiGmapGoogleMapApi is a promise.
 		// The "then" callback function provides the google.maps object.
 		uiGmapGoogleMapApi.then(function(maps){
 			//do stuff with the maps object here I guess
 		});
 		
-		
-		
-		
+	
 }]);
