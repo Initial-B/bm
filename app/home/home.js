@@ -14,21 +14,17 @@ angular.module('bm')
 			averageHabitScore: 0,
 		};
 		$scope.gmapsObject = null;
+		$scope.lastInfoWindow = null;
 		
 		$scope.getBarOutput = '';
-		$scope.infoWindows = [];
+		
 		$scope.map = {
-			center: {
-				latitude: 38.85, 
-				longitude: -77.2 
-			}, 
+			center: barsAPI.coords(38.85, -77.2),
 			zoom: 10,
 			events: {
 				tilesloaded: function (map) {
 					$scope.$apply(function () {
-						console.log('tilesloaded event');
 						$scope.gmapsObject = map;
-						console.log('this is the map instance: ' + BM.utils.stringifySafe($scope.gmapsObject));
 					});
 				}
 			},
@@ -37,10 +33,7 @@ angular.module('bm')
 					id: '1',
 					name: 'marker 1',
 					'showWindow': true,
-					'coordinates': {
-						'latitude': 38.85, 
-						'longitude': -77.20
-					},
+					'coordinates': barsAPI.coords(38.85, -77.20),
 					description: 'this is the first hard-coded marker',
 					events: {
 						mouseover: function(marker){
@@ -49,30 +42,41 @@ angular.module('bm')
 						},
 						click: function(marker){
 							console.log('clicked marker 1');
-							$scope.showInfoWindow('1');				
+							//$scope.showInfoWindow('1');				
+							$scope.showInfoWindow(marker, '1');	
 							//TODO: try calling $scope stuff
 						}
 					}
-				},
-				{
+				},{
 					id: '2',
-					name: 'marker 1',
+					name: 'marker 2',
 					'showWindow': true,
-					'coordinates': {
-						'latitude': 38.90, 
-						'longitude': -77.00
-					},
-					description: 'this is marker 2, not much to see here'
-				},
-				{
+					'coordinates': barsAPI.coords(38.90, -77.00),
+					description: 'this is marker 2, not much to see here',
+					events: {
+						mouseover: function(marker){
+							console.log('moused over marker 2');
+						},
+						click: function(marker){
+							console.log('clicked marker 2');
+							$scope.showInfoWindow(marker, '2');	
+						}
+					}
+				},{
 					id: '3',
-					name: 'marker 1',
+					name: 'marker 3',
 					'showWindow': true,
-					'coordinates': {
-						'latitude': 38.875, 
-						'longitude': -77.15
-					},
-					description: 'I like turtles'
+					'coordinates': barsAPI.coords(38.875, -77.15),
+					description: 'I like turtles',
+					events: {
+						mouseover: function(marker){
+							console.log('moused over marker 3');
+						},
+						click: function(marker){
+							console.log('clicked marker 3');
+							$scope.showInfoWindow(marker, '3');	
+						}
+					}
 				}
 			]
 		};
@@ -105,26 +109,30 @@ angular.module('bm')
 			}
 			return null;
 		};
-		
-		$scope.showInfoWindow = function(markerID){		
+
+		$scope.showInfoWindow = function(marker, markerID){		
 			console.log('showInfoWindow() entry point');
-			var marker = $scope.getMarker(markerID);
-			//console.log('found marker: ' + BM.utils.stringifySafe(marker));
 			if(marker){
-				//DEBUG
-				console.log('creating infoWindow for marker: ' + BM.utils.stringifySafe(marker));
+				//retrieve the scope's representation of the marker
+				var scopeMarker = $scope.getMarker(markerID);
 				
 				var infoWindow = new google.maps.InfoWindow({
-					content: '<h3>' + marker.name + '</h3>'
-					+ '<div>' + marker.description + '</div>'
+					content: '<h3>' + scopeMarker.name + '</h3>'
+					+ '<div>' + scopeMarker.description + '</div>'
 				});
 				
-				//console.log('opening infoWindow');
 				if($scope.gmapsObject){
+					//close last infoWindow, if any
+					if($scope.lastInfoWindow){
+						$scope.lastInfoWindow.close();
+					}
+					//set infoWindow as lastInfoWindow, and open it
+					$scope.lastInfoWindow = infoWindow;
 					infoWindow.open($scope.gmapsObject, marker)
 				}
 			}
 		};
+		
 		
 		// uiGmapGoogleMapApi is a promise.
 		// The "then" callback function provides the google.maps object.

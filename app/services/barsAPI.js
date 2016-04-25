@@ -21,8 +21,16 @@
 			});
 		};
 		
+		function coords(latitude, longitude){
+			return {
+				'latitude': latitude, 
+				'longitude': longitude
+			};
+		};
+		
 		return{
-			getBar: getBar
+			getBar: getBar,
+			coords: coords
 		};
 	
 	};
