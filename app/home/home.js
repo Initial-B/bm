@@ -16,10 +16,18 @@ angular.module('bm')
 		$scope.gmapsObject = null;
 		$scope.lastInfoWindow = null;
 		
+		//contents of bar info area below the map
+		$scope.barInfo = {
+			show: false,
+			name: '',
+			description: '',
+			coordinates: {}
+		}
+		
 		$scope.getBarOutput = '';
 		
 		$scope.map = {
-			center: barsAPI.coords(38.85, -77.2),
+			center: barsAPI.coords(39.00, -77.2),
 			zoom: 10,
 			events: {
 				tilesloaded: function (map) {
@@ -42,8 +50,8 @@ angular.module('bm')
 						},
 						click: function(marker){
 							console.log('clicked marker 1');
-							//$scope.showInfoWindow('1');				
-							$scope.showInfoWindow(marker, '1');	
+							//$scope.showInfo('1');				
+							$scope.showInfo(marker, '1');	
 							//TODO: try calling $scope stuff
 						}
 					}
@@ -59,7 +67,7 @@ angular.module('bm')
 						},
 						click: function(marker){
 							console.log('clicked marker 2');
-							$scope.showInfoWindow(marker, '2');	
+							$scope.showInfo(marker, '2');	
 						}
 					}
 				},{
@@ -74,7 +82,7 @@ angular.module('bm')
 						},
 						click: function(marker){
 							console.log('clicked marker 3');
-							$scope.showInfoWindow(marker, '3');	
+							$scope.showInfo(marker, '3');	
 						}
 					}
 				}
@@ -110,17 +118,25 @@ angular.module('bm')
 			return null;
 		};
 
-		$scope.showInfoWindow = function(marker, markerID){		
-			console.log('showInfoWindow() entry point');
+		$scope.showInfo = function(marker, markerID){		
+			console.log('showInfo() entry point');
+				
+			//retrieve the scope's representation of the marker	
+			var scopeMarker = $scope.getMarker(markerID);
+			//if marker found, show info
+			if(scopeMarker){
+				$scope.barInfo = {
+					show: true,
+					name: scopeMarker.name,
+					coordinates: scopeMarker.coordinates,
+					description: scopeMarker.description
+				}
+			}
+			//show infoWindow on map
 			if(marker){
-				//retrieve the scope's representation of the marker
-				var scopeMarker = $scope.getMarker(markerID);
-				
 				var infoWindow = new google.maps.InfoWindow({
-					content: '<h3>' + scopeMarker.name + '</h3>'
-					+ '<div>' + scopeMarker.description + '</div>'
+					content: '<div>' + scopeMarker.name + '<div>'
 				});
-				
 				if($scope.gmapsObject){
 					//close last infoWindow, if any
 					if($scope.lastInfoWindow){
@@ -131,6 +147,14 @@ angular.module('bm')
 					infoWindow.open($scope.gmapsObject, marker)
 				}
 			}
+		};
+		
+		$scope.closeBarInfo = function(){
+			console.log('closing barInfo');
+			$scope.$apply(function(){
+				$scope.barInfo.show = false;
+			});
+			
 		};
 		
 		

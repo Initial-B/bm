@@ -16,5 +16,15 @@
 
 <br>
 <br>
+<!--
 <button ng-click="testGetBar()" id="getBarButton" type="button">test getBar()</button>
 <div class="markerInfo">{{getBarOutput}}</div>
+<br>
+-->
+<div class="closeBarInfoButton" ngShow="barInfo.show" ng-click="closeBarInfo()">x&nbsp&nbsp&nbspclose</div>
+<div class="barInfo" ngShow="barInfo.show">
+<h4>{{barInfo.name}}</h4>
+{{barInfo.coordinates.latitude}} N, {{barInfo.coordinates.longitude}} W
+<br><br>
+{{barInfo.description}}
+</div>
