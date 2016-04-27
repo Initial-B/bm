@@ -50,9 +50,7 @@ angular.module('bm')
 						},
 						click: function(marker){
 							console.log('clicked marker 1');
-							//$scope.showInfo('1');				
 							$scope.showInfo(marker, '1');	
-							//TODO: try calling $scope stuff
 						}
 					}
 				},{
@@ -150,11 +148,7 @@ angular.module('bm')
 		};
 		
 		$scope.closeBarInfo = function(){
-			console.log('closing barInfo');
-			$scope.$apply(function(){
-				$scope.barInfo.show = false;
-			});
-			
+			$scope.barInfo.show = false;
 		};
 		
 		
