@@ -16,6 +16,9 @@ angular.module('bm')
 		$scope.gmapsObject = null;
 		$scope.lastInfoWindow = null;
 		
+		$scope.expandSearchControl = true;
+		$scope.expandOtherControl = false;
+		
 		//contents of bar info area below the map
 		$scope.barInfo = {
 			show: false,

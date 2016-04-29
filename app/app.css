@@ -1,5 +1,10 @@
 /* app css stylesheet */
 
+/* insert empty div after floating elems to clear*/
+div.clear {
+    clear:both;
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -27,5 +32,9 @@
 .menu > li:nth-child(1):before {
   content: "";
   padding: 0;
+}
+
+.borderBox{
+	border: 1px solid #c0c0c0;
 }
 

@@ -2,29 +2,60 @@
 <ng-include src="'home/devStats.html'"></ng-include>
 -->
 <link rel="stylesheet" href="home/home.css">
-
-<ui-gmap-google-map 
-	center="map.center" 
-	zoom="map.zoom"
-	events="map.events">
-		<ui-gmap-markers 
-			models="map.markers"
-			coords="'coordinates'"
-			idkey="'id'"
-		></ui-gmap-markers>
-</ui-gmap-google-map>
-
-<br>
-<br>
-<!--
-<button ng-click="testGetBar()" id="getBarButton" type="button">test getBar()</button>
-<div class="markerInfo">{{getBarOutput}}</div>
-<br>
--->
-<div class="closeBarInfoButton" ng-show="barInfo.show" ng-click="closeBarInfo()">x&nbsp&nbsp&nbspclose</div>
-<div class="barInfo" ng-show="barInfo.show">
-<h4>{{barInfo.name}}</h4>
-{{barInfo.coordinates.latitude}} N, {{barInfo.coordinates.longitude}} W
-<br><br>
-{{barInfo.description}}
+<div class="mainContainer"
+	<!-- gmap placeholder -->
+	<!--
+	<div class="angular-google-map-container borderBox">
+	map
+	</div>
+	-->
+	<!-- actual gmap -->
+	<ui-gmap-google-map 
+		center="map.center" 
+		zoom="map.zoom"
+		events="map.events">
+			<ui-gmap-markers 
+				models="map.markers"
+				coords="'coordinates'"
+				idkey="'id'"
+			></ui-gmap-markers>
+	</ui-gmap-google-map>
+	<div class="controlsContainer borderBox">
+	controlsContainer
+		<div class="searchControlContainer borderBox">
+			<div class="searchControlHead borderBox"
+			ng-click="expandSearchControl = !expandSearchControl">
+			searchControlHead
+			</div>
+			<div class="searchControlBody borderBox"
+			ng-show="expandSearchControl">
+			searchControlBody
+			</div>
+		</div>
+		<div class="otherControlContainer borderBox">
+			<div class="otherControlHead borderBox"
+			ng-click="expandOtherControl = !expandOtherControl">
+			otherControlHead
+			</div>
+			<div class="otherControlBody borderBox"
+			ng-show="expandOtherControl">
+			otherControlBody
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<br>
+	<!--
+	<button ng-click="testGetBar()" id="getBarButton" type="button">test getBar()</button>
+	<div class="markerInfo">{{getBarOutput}}</div>
+	<br>
+	-->
+	<div class="closeBarInfoButton" ng-show="barInfo.show" ng-click="closeBarInfo()">x&nbsp&nbsp&nbspclose</div>
+	<div class="clear">
+	<div class="barInfo borderBox" ng-show="barInfo.show">
+	<h4>{{barInfo.name}}</h4>
+	{{barInfo.coordinates.latitude}} N, {{barInfo.coordinates.longitude}} W
+	<br><br>
+	{{barInfo.description}}
+	</div>
 </div>
