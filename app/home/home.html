@@ -10,6 +10,7 @@
 	</div>
 	-->
 	<!-- actual gmap -->
+	
 	<ui-gmap-google-map 
 		center="map.center" 
 		zoom="map.zoom"
@@ -20,18 +21,29 @@
 				idkey="'id'"
 			></ui-gmap-markers>
 	</ui-gmap-google-map>
+	<!-- -->
 	<div class="controlsContainer borderBox">
 	controlsContainer
 		<div class="searchControlContainer borderBox">
 			<div class="searchControlHead borderBox"
 			ng-click="expandSearchControl = !expandSearchControl">
-			searchControlHead
+			Search Locations
 			</div>
 			<div class="searchControlBody borderBox"
 			ng-show="expandSearchControl">
-			searchControlBody
+			<form novalidate class="searchForm">
+				Bar/Restaurant name:<br>
+				<input type="text" ng-model="searchForm.barName" />
+				<br><br>
+				Product name:<br>
+				<input type="text" ng-model="searchForm.beerName" />
+				<br><br>
+				<input type="submit" ng-click="submitSearch(searchForm)" value="Search" />
+			</form>
 			</div>
 		</div>
+		<!-- sample control -->
+		<!--
 		<div class="otherControlContainer borderBox">
 			<div class="otherControlHead borderBox"
 			ng-click="expandOtherControl = !expandOtherControl">
@@ -42,6 +54,7 @@
 			otherControlBody
 			</div>
 		</div>
+		-->
 	</div>
 	<div class="clear"></div>
 	<br>

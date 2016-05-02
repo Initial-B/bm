@@ -19,6 +19,11 @@ angular.module('bm')
 		$scope.expandSearchControl = true;
 		$scope.expandOtherControl = false;
 		
+		$scope.searchForm = {
+			barName: '',
+			beerName: ''
+		}
+		
 		//contents of bar info area below the map
 		$scope.barInfo = {
 			show: false,
@@ -152,6 +157,11 @@ angular.module('bm')
 		
 		$scope.closeBarInfo = function(){
 			$scope.barInfo.show = false;
+		};
+		
+		$scope.submitSearch = function(searchForm){
+			//TODO: barsAPI.searchBars(searchForm)
+			//TODO: update view with search results
 		};
 		
 		
